@@ -1,0 +1,16 @@
+/* 
+  Localizable.strings
+  myMovies
+
+  Created by Alberto Kemish Flores Macias on 8/11/23.
+  
+*/
+//MARK: Login Strings
+"LoginStrings_usernamePlaceholder" = "Username";
+"LoginStrings_passwordPlaceholder" = "Password";
+"LoginStrings_loginButton" = "Log In";
+"LoginStrings_errorLoginMessage" = "Invalid username and/or password: You did not provide a valid login";
+
+
+//MARK: MainMovies Strings
+"MainMoviesStrings_mainMoviesTitle" = "Title View";
