@@ -23,4 +23,20 @@ extension UIColor {
     static var customDarkBlue: UIColor {
         return UIColor(red: 9/255, green: 21/255, blue: 27/255, alpha: 1.0)
     }
+    
+    static var customBlack: UIColor {
+        return UIColor(red: 25/255, green: 32/255, blue: 38/255, alpha: 1.0)
+    }
+    
+    static var customBlackBackground: UIColor {
+        return UIColor(red: 14/255, green: 21/255, blue: 25/255, alpha: 1.0)
+    }
+    
+    static var cardsBackground: UIColor {
+        return UIColor(red: 28/255, green: 39/255, blue: 45/255, alpha: 1.0)
+    }
+    
+    static var cardsTitle: UIColor {
+        return UIColor(red: 118/255, green: 189/255, blue: 116/255, alpha: 1.0)
+    }
 }
