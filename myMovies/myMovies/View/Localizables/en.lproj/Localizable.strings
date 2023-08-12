@@ -13,4 +13,19 @@
 
 
 //MARK: MainMovies Strings
-"MainMoviesStrings_mainMoviesTitle" = "Title View";
+"MainMoviesStrings_mainMoviesTitle" = "Movies";
+"MainMoviesStrings_popular" = "Popular";
+"MainMoviesStrings_topRated" = "Top Rated";
+"MainMoviesStrings_onTv" = "On Tv";
+"MainMoviesStrings_airingToday" = "Airing Today";
+
+
+//MARK: Alert Strings
+"AlertStrings_profileActionTitle" = "What do you want to do?";
+"AlertStrings_profile" = "Profile";
+"AlertStrings_logOut" = "Log Out";
+"AlertStrings_cancel" = "Cancel";
+
+
+//MARK: Profile Strings
+"ProfileStrings_profileTitle" = "Profile";
