@@ -13,9 +13,10 @@ class MoviesMainViewController: UIViewController, UICollectionViewDataSource, UI
     
     var collectionView: UICollectionView!
     
-    var currentPage = 1 // Start with page 1
-    var defaultSection = "popular"
-    var isFetchingData = false // To prevent multiple fetch requests at the same time
+    var currentPage = 1
+    var defaultSection = DefaultValuesString.defaultSection.localized
+    var showType = DefaultValuesString.defaultShow.localized
+    var isFetchingData = false
     
     private let mainBackground: UIView = {
         let view = UIView()
@@ -67,7 +68,7 @@ class MoviesMainViewController: UIViewController, UICollectionViewDataSource, UI
         guard !isFetchingData else { return }
         isFetchingData = true
         
-        viewModel.fetchMovies(page: currentPage) { [weak self] in
+        viewModel.fetchMovies(showType: showType, defaultSection: defaultSection, page: currentPage) { [weak self] in
             self?.isFetchingData = false
             self?.collectionView.reloadData()
         }
@@ -82,7 +83,7 @@ class MoviesMainViewController: UIViewController, UICollectionViewDataSource, UI
         
         if let movie = viewModel.movieAtIndex(indexPath.row) {
             if let posterPath = movie.posterPath {
-                if let url = URL(string: "https://image.tmdb.org/t/p/original/\(posterPath)") {
+                if let url = URL(string: "\(DefaultValuesString.urlImages.localized)\(posterPath)") {
                     ImageLoader.loadImage(from: url.absoluteString) { loadedImage in
                         DispatchQueue.main.async {
                             if let loadedImage = loadedImage {
@@ -97,9 +98,15 @@ class MoviesMainViewController: UIViewController, UICollectionViewDataSource, UI
                 }
             }
             
-            cell.movieTitle.text = movie.originalTitle
-            let formattedDateStr = DateFormatterHelper.convertDate(movie.releaseDate ?? "")
-            cell.date.text = formattedDateStr
+            if showType == DefaultValuesString.defaultMovie.localized {
+                cell.movieTitle.text = movie.originalTitle
+                let formattedDateStr = DateFormatterHelper.convertDate(movie.releaseDate ?? "")
+                cell.date.text = formattedDateStr
+            } else if showType == DefaultValuesString.defaultTv.localized {
+                cell.movieTitle.text = movie.name
+                let formattedDateStr = DateFormatterHelper.convertDate(movie.first_air_date ?? "")
+                cell.date.text = formattedDateStr
+            }
             cell.score.text = "★ \(movie.voteAverage ?? 0.0)"
             cell.descriptionText.text = movie.overview
         }
@@ -116,6 +123,7 @@ class MoviesMainViewController: UIViewController, UICollectionViewDataSource, UI
             guard let selectedMovieId = selectedMovie.id else { return }
             let movieDetailsVC = MovieDetailsViewController()
             movieDetailsVC.selectedMovieId = selectedMovieId
+            movieDetailsVC.showType = self.showType
             self.present(movieDetailsVC, animated: true, completion: nil)
         }
     }
@@ -127,13 +135,9 @@ class MoviesMainViewController: UIViewController, UICollectionViewDataSource, UI
     }
     
     func setSegmentedControl(){
-        
-        
-        
-        
         let items = [MainMoviesStrings.popular.localized, MainMoviesStrings.topRated.localized, MainMoviesStrings.onTv.localized, MainMoviesStrings.airingToday.localized]
         let segmentedControlView = CustomSegmentedControlView(items: items)
-        segmentedControlView.delegate = self // Set the delegate
+        segmentedControlView.delegate = self
         segmentedControlView.translatesAutoresizingMaskIntoConstraints = false
         segmentedControlView.setTextColor(.white, backgroundColor: UIColor.customBlack, selectedSegmentColor: .lightGray)
         
@@ -150,26 +154,28 @@ class MoviesMainViewController: UIViewController, UICollectionViewDataSource, UI
     
     func segmentedControlDidChange(to index: Int) {
          var apiEndpoint = ""
+        var apiShow = ""
 
          switch index {
          case 0:
-             apiEndpoint = "popular"
-             print("popular")
+             apiEndpoint = "\(DefaultValuesString.apiEndpointPopular.localized)"
+             apiShow = "\(DefaultValuesString.defaultMovie.localized)"
          case 1:
-             apiEndpoint = "top_rated"
-             print("top_rated")
+             apiEndpoint = "\(DefaultValuesString.apiEndpointTopRated.localized)"
+             apiShow = "\(DefaultValuesString.defaultMovie.localized)"
          case 2:
-             apiEndpoint = "on_the_air"
-             print("on_the_air")
+             apiEndpoint = "\(DefaultValuesString.apiEndpointOnTheAir.localized)"
+             apiShow = "\(DefaultValuesString.defaultTv.localized)"
          case 3:
-             apiEndpoint = "airing_today"
-             print("airing_today")
+             apiEndpoint = "\(DefaultValuesString.apiEndpointAiringToday.localized)"
+             apiShow = "\(DefaultValuesString.defaultTv.localized)"
          default:
              break
          }
 
-         // Call your API request method with the selected endpoint
         defaultSection = apiEndpoint
+        showType = apiShow
+        currentPage = 1
         getMovies()
      }
     
@@ -207,7 +213,7 @@ extension MoviesMainViewController: UIScrollViewDelegate {
         let contentHeight = scrollView.contentSize.height
         let screenHeight = scrollView.frame.size.height
         
-        if offsetY > contentHeight - screenHeight * 2 { // Fetch more data when user is close to the end
+        if offsetY > contentHeight - screenHeight * 2 {
             currentPage += 1
             getMovies()
         }

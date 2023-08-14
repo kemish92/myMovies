@@ -24,7 +24,7 @@ class CustomCell: UICollectionViewCell {
     }()
     
     let movieImage: UIImageView = {
-        let imageName = "default.jpeg"
+        let imageName = "\(DefaultValuesString.defaultImage.localized)"
         let image = UIImage(named: imageName)
         let imageView = UIImageView(image: image!)
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -45,7 +45,7 @@ class CustomCell: UICollectionViewCell {
         label.text = ""
         label.textColor = UIColor.cardsTitle
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont(name: "AppleSDGothicNeo-Bold", size: CustomFontSizes.subTitle)
+        label.font = UIFont(name: "\(DefaultValuesString.defaultFont.localized)", size: CustomFontSizes.subTitle)
         return label
     }()
     
@@ -73,7 +73,7 @@ class CustomCell: UICollectionViewCell {
         let label = UILabel()
         label.text = ""
         label.textColor = UIColor.cardsTitle
-        label.font = UIFont(name: "AppleSDGothicNeo-Bold", size: CustomFontSizes.subTitle)
+        label.font = UIFont(name: "\(DefaultValuesString.defaultFont.localized)", size: CustomFontSizes.subTitle)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -88,7 +88,7 @@ class CustomCell: UICollectionViewCell {
         let label = UILabel()
         label.text = ""
         label.textColor = UIColor.cardsTitle
-        label.font = UIFont(name: "AppleSDGothicNeo-Bold", size: CustomFontSizes.subTitle)
+        label.font = UIFont(name: "\(DefaultValuesString.defaultFont.localized)", size: CustomFontSizes.subTitle)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -104,7 +104,7 @@ class CustomCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = ""
         label.textColor = .white
-        label.font = UIFont(name: "AppleSDGothicNeo-Bold", size: CustomFontSizes.parragraph)
+        label.font = UIFont(name: "\(DefaultValuesString.defaultFont.localized)", size: CustomFontSizes.parragraph)
         label.numberOfLines = 8
         return label
     }()

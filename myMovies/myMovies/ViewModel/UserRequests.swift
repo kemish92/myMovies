@@ -25,7 +25,7 @@ class loginUser {
     func login(username: String, password: String) {
         
         
-        let apiKey = "cb6238d228aa293e6bea5222966f8dbd" // Replace with your actual TMDB API key
+        let apiKey = "cb6238d228aa293e6bea5222966f8dbd"
         let headers = [
             "accept": "application/json",
             "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjYjYyMzhkMjI4YWEyOTNlNmJlYTUyMjI5NjZmOGRiZCIsInN1YiI6IjY0ZDU4NTE2YjZjMjY0MTE1OTU4NjY1YSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.lftAWbeir1eBdZ9DAYqsBNx5wL4rL1PpNhlfuzeqh7E"
@@ -36,9 +36,6 @@ class loginUser {
                                           cachePolicy: .useProtocolCachePolicy,
                                           timeoutInterval: 10.0)
         
-        
-        //cb6238d228aa293e6bea5222966f8dbd
-        //058dad34fe43abbc1ba33a55be6df69bd5cfa49e
         request.httpMethod = "GET"
         request.allHTTPHeaderFields = headers
 
