@@ -10,6 +10,7 @@ import UIKit
 class MovieDetailsViewController: UIViewController {
     var detailsViewModel = MovieDetailsViewModel()
     var selectedMovieId = 0
+    var showType = ""
     private let mainImageContainer: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -25,7 +26,7 @@ class MovieDetailsViewController: UIViewController {
     }()
     
     let movieImage: UIImageView = {
-        let imageName = "default.jpeg"
+        let imageName = "\(DefaultValuesString.defaultImage.localized)"
         let image = UIImage(named: imageName)
         let imageView = UIImageView(image: image!)
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -38,9 +39,9 @@ class MovieDetailsViewController: UIViewController {
     private let movieTitle: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Movie title"
+        label.text = ""
         label.numberOfLines = 2
-        label.font = UIFont(name: "AppleSDGothicNeo-Bold", size: CustomFontSizes.titleLarge)
+        label.font = UIFont(name: "\(DefaultValuesString.defaultFont.localized)", size: CustomFontSizes.titleLarge)
         label.textColor = .white
         return label
     }()
@@ -52,7 +53,7 @@ class MovieDetailsViewController: UIViewController {
     }()
     
     let gradientImg: UIImageView = {
-        let imageName = "gradient.png"
+        let imageName = "\(DefaultValuesString.defaultImageGradient.localized)"
         let image = UIImage(named: imageName)
         let imageView = UIImageView(image: image!)
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -64,9 +65,9 @@ class MovieDetailsViewController: UIViewController {
     private let voteAverage: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "★ 8.0"
+        label.text = "★"
         label.textAlignment = .right
-        label.font = UIFont(name: "AppleSDGothicNeo-Bold", size: CustomFontSizes.titleLarge)
+        label.font = UIFont(name: "\(DefaultValuesString.defaultFont.localized)", size: CustomFontSizes.titleLarge)
         label.textColor = .white
         return label
     }()
@@ -82,7 +83,7 @@ class MovieDetailsViewController: UIViewController {
     private let releaseDate: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "2023"
+        label.text = ""
         label.numberOfLines = 0
         label.textColor = UIColor.cardsTitle
         return label
@@ -91,7 +92,7 @@ class MovieDetailsViewController: UIViewController {
     private let runTime: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "1:30 hrs"
+        label.text = ""
         label.textColor = .white
         return label
     }()
@@ -99,7 +100,7 @@ class MovieDetailsViewController: UIViewController {
     private let generes: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "action, adventure"
+        label.text = ""
         label.textColor = .white
         return label
     }()
@@ -107,8 +108,8 @@ class MovieDetailsViewController: UIViewController {
     private let storyLineTitle: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Story Line"
-        label.font = UIFont(name: "AppleSDGothicNeo-Bold", size: CustomFontSizes.titleMid)
+        label.text = ""
+        label.font = UIFont(name: "\(DefaultValuesString.defaultFont.localized)", size: CustomFontSizes.titleMid)
         label.textColor = .white
         return label
     }()
@@ -117,7 +118,7 @@ class MovieDetailsViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = ""
-        label.font = UIFont(name: "AppleSDGothicNeo-Bold", size: CustomFontSizes.title)
+        label.font = UIFont(name: "\(DefaultValuesString.defaultFont.localized)", size: CustomFontSizes.title)
         label.textAlignment = NSTextAlignment.justified
         label.textColor = .white
         return label
@@ -127,7 +128,7 @@ class MovieDetailsViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = ""
-        label.font = UIFont(name: "AppleSDGothicNeo-Bold", size: CustomFontSizes.parragraph)
+        label.font = UIFont(name: "\(DefaultValuesString.defaultFont.localized)", size: CustomFontSizes.parragraph)
         label.textColor = .white
         return label
     }()
@@ -138,15 +139,6 @@ class MovieDetailsViewController: UIViewController {
         view.backgroundColor = UIColor.cardsBackgroundLight
         return view
     }()
-    
-
-    
-    //original_title //vote_average
-    //release_date //runtime //genres[]
-    //Story Line
-    //overview
-    //spoken_languages []
-    //production_companies[] //Collection view horizontal
     
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -159,12 +151,11 @@ class MovieDetailsViewController: UIViewController {
         view.backgroundColor = UIColor.customBlackBackground
         setupScrollView()
         setUI()
-        getMovieDetails(id: selectedMovieId)
+        getMovieDetails(showType: showType, id: selectedMovieId)
     }
     
     private func setupScrollView() {
         view.addSubview(scrollView)
-        
         NSLayoutConstraint.activate([
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -186,134 +177,112 @@ class MovieDetailsViewController: UIViewController {
         movieStats.addArrangedSubview(releaseDate)
         mainDescriptionContainer.addSubview(storyLineTitle)
         mainDescriptionContainer.addSubview(storyLine)
-        storyLine.numberOfLines = 0 // Allow multiple lines
+        storyLine.numberOfLines = 0
         mainDescriptionContainer.addSubview(spokenLanguages)
         mainDescriptionContainer.addSubview(companiesCollectionView)
         
         NSLayoutConstraint.activate([
-            // Constraints for mainImageContainer
             mainImageContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             mainImageContainer.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             mainImageContainer.topAnchor.constraint(equalTo: scrollView.topAnchor),
             mainImageContainer.heightAnchor.constraint(equalToConstant: view.bounds.height/2),
             
-            // Constraints for movieImage
             movieImage.leadingAnchor.constraint(equalTo: mainImageContainer.leadingAnchor),
             movieImage.trailingAnchor.constraint(equalTo: mainImageContainer.trailingAnchor),
             movieImage.topAnchor.constraint(equalTo: mainImageContainer.topAnchor),
             movieImage.bottomAnchor.constraint(equalTo: mainImageContainer.bottomAnchor),
             
-            // Constraints for voteAverageView
             voteAverageView.leadingAnchor.constraint(equalTo: mainImageContainer.leadingAnchor),
             voteAverageView.trailingAnchor.constraint(equalTo: mainImageContainer.trailingAnchor),
             voteAverageView.heightAnchor.constraint(equalToConstant: 50),
             voteAverageView.bottomAnchor.constraint(equalTo: mainImageContainer.bottomAnchor),
             
-            // Constraints for gradientImg
             gradientImg.leadingAnchor.constraint(equalTo: voteAverageView.leadingAnchor),
             gradientImg.trailingAnchor.constraint(equalTo: voteAverageView.trailingAnchor),
             gradientImg.topAnchor.constraint(equalTo: voteAverageView.topAnchor),
             gradientImg.bottomAnchor.constraint(equalTo: voteAverageView.bottomAnchor),
             
-            // Constraints for voteAverage
             voteAverage.leadingAnchor.constraint(equalTo: voteAverageView.leadingAnchor),
             voteAverage.trailingAnchor.constraint(equalTo: voteAverageView.trailingAnchor, constant: -10),
             voteAverage.topAnchor.constraint(equalTo: voteAverageView.topAnchor),
             voteAverage.bottomAnchor.constraint(equalTo: voteAverageView.bottomAnchor),
             
-            // Constraints for mainDescriptionContainer
             mainDescriptionContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             mainDescriptionContainer.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             mainDescriptionContainer.topAnchor.constraint(equalTo: mainImageContainer.bottomAnchor),
             mainDescriptionContainer.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             
-            // Constraints for movieTitle
             movieTitle.leadingAnchor.constraint(equalTo: mainDescriptionContainer.leadingAnchor, constant: 10),
             movieTitle.trailingAnchor.constraint(equalTo: mainDescriptionContainer.trailingAnchor, constant: -10),
             movieTitle.topAnchor.constraint(equalTo: mainDescriptionContainer.topAnchor, constant: 20),
             movieTitle.heightAnchor.constraint(equalToConstant: 100),
             
-            // Constraints for movieStats
             movieStats.leadingAnchor.constraint(equalTo: mainDescriptionContainer.leadingAnchor, constant: 10),
             movieStats.trailingAnchor.constraint(equalTo: mainDescriptionContainer.trailingAnchor, constant: -10),
             movieStats.topAnchor.constraint(equalTo: movieTitle.bottomAnchor),
             movieStats.heightAnchor.constraint(equalToConstant: 50),
-            
             
             releaseDate.trailingAnchor.constraint(equalTo: movieStats.leadingAnchor),
             releaseDate.leadingAnchor.constraint(equalTo: movieStats.leadingAnchor),
             releaseDate.topAnchor.constraint(equalTo: movieStats.topAnchor),
             releaseDate.bottomAnchor.constraint(equalTo: movieStats.bottomAnchor),
             
-            // Constraints for storyLineTitle
             storyLineTitle.leadingAnchor.constraint(equalTo: mainDescriptionContainer.leadingAnchor, constant: 10),
             storyLineTitle.trailingAnchor.constraint(equalTo: mainDescriptionContainer.trailingAnchor, constant: -10),
             storyLineTitle.topAnchor.constraint(equalTo: movieStats.bottomAnchor),
             storyLineTitle.heightAnchor.constraint(equalToConstant: 50),
             
-            // Constraints for storyLine
-            // Constraint for dynamic storyLine height
             storyLine.leadingAnchor.constraint(equalTo: mainDescriptionContainer.leadingAnchor, constant: 10),
             storyLine.trailingAnchor.constraint(equalTo: mainDescriptionContainer.trailingAnchor, constant: -10),
             storyLine.topAnchor.constraint(equalTo: storyLineTitle.bottomAnchor),
             storyLine.bottomAnchor.constraint(lessThanOrEqualTo: spokenLanguages.topAnchor, constant: -10), // Optional spacing between elements
             
-            // Constraints for spokenLanguages
             spokenLanguages.leadingAnchor.constraint(equalTo: mainDescriptionContainer.leadingAnchor, constant: 10),
             spokenLanguages.trailingAnchor.constraint(equalTo: mainDescriptionContainer.trailingAnchor, constant: -10),
             spokenLanguages.topAnchor.constraint(equalTo: storyLine.bottomAnchor),
             spokenLanguages.heightAnchor.constraint(equalToConstant: 50),
-            
-            // Constraints for companiesCollectionView
             
             companiesCollectionView.leadingAnchor.constraint(equalTo: mainDescriptionContainer.leadingAnchor),
             companiesCollectionView.trailingAnchor.constraint(equalTo: mainDescriptionContainer.trailingAnchor),
             companiesCollectionView.topAnchor.constraint(equalTo: spokenLanguages.bottomAnchor),
             companiesCollectionView.heightAnchor.constraint(equalToConstant: 100),
             companiesCollectionView.bottomAnchor.constraint(equalTo: mainDescriptionContainer.bottomAnchor),
-            
-
         ])
-        
-        
-
-         
-
     }
 
     
-    func getMovieDetails(id: Int) {
-        //original_title //vote_average
-        //release_date //runtime //genres[]
-        //Story Line
-        //overview
-        //spoken_languages []
-        //production_companies[] //Collection view horizontal
-        
-        
-        detailsViewModel.fetchMovies(id: id) { [weak self] movieDetails in
-            var movieTitle = movieDetails.originalTitle
+    func getMovieDetails(showType: String, id: Int) {
+        detailsViewModel.fetchMovies(showType: showType, id: id) { [weak self] movieDetails in
+            var showName = ""
+            var showDate = ""
+            var showDuration = 0
+            if showType == "\(DefaultValuesString.defaultMovie.localized)" {
+                showName = movieDetails.originalTitle ?? ""
+                showDate = movieDetails.releaseDate ?? ""
+                showDuration = movieDetails.runtime ?? 0
+            } else if showType == "\(DefaultValuesString.defaultTv.localized)" {
+                showName = movieDetails.name ?? ""
+                showDate = movieDetails.first_air_date ?? ""
+                showDuration = 0
+            }
+            
             guard let moviePoster = movieDetails.posterPath else { return }
-            guard let movieTitle = movieDetails.originalTitle else { return }
-            guard let releaseDate = movieDetails.releaseDate else { return }
+            let movieTitle = showName
+            let releaseDate = showDate
             guard let formattedYear = DateFormatterHelperYear.formatYearFromDate(dateString: "\(releaseDate)") else { return }
-            guard let runTime = movieDetails.runtime else { return }
+            let runTime = showDuration
             let formattedTime = TimeFormatterHelper.formatTimeFromMinutes(minutes: runTime)
             guard let generes = movieDetails.genres else { return }
             guard let spokenLang = movieDetails.spokenLanguages else { return }
             guard let storyLine = movieDetails.overview else { return }
-            
+            guard let voteAverage = movieDetails.voteAverage else { return }
             guard let productionCompany = movieDetails.productionCompanies else { return }
             
             
             if let productionCompanies = movieDetails.productionCompanies {
                 self?.companiesCollectionView.configure(with: productionCompany)
              }
-            
-       
-            
-            
-            print("productionCompany \(productionCompany)")
+
             var allGeneres = ""
             for i in 0..<generes.count {
                 allGeneres += generes[i].name ?? ""
@@ -329,8 +298,8 @@ class MovieDetailsViewController: UIViewController {
                     allSpoken += ", "
                 }
             }
-            ///71BqEFAF4V3qjjMPCpLuyJFB9A.png
-                if let url = URL(string: "https://image.tmdb.org/t/p/original\(moviePoster)") {
+            
+            if let url = URL(string: "\(DefaultValuesString.urlImages.localized)\(moviePoster)") {
                     ImageLoader.loadImage(from: url.absoluteString) { loadedImage in
                         DispatchQueue.main.async {
                             self?.movieImage.image = loadedImage
@@ -338,12 +307,12 @@ class MovieDetailsViewController: UIViewController {
                             self?.releaseDate.text = "\(formattedYear) - \(formattedTime) hrs - \(allGeneres)"
                             self?.spokenLanguages.text = allSpoken
                             self?.storyLine.text = storyLine
+                            self?.voteAverage.text = "★ \(String(format: "%.1f", voteAverage))"
                         }
                     }
                 } else {
                     print("\(ErrorStrings.invaludURL.localized)")
                 }
-            //}
         }
     }
 }

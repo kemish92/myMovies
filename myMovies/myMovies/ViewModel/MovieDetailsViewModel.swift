@@ -11,8 +11,8 @@ class MovieDetailsViewModel {
     var allMoviesDetails: MovieDetailsModel?
     var apiService = MovieDetails.shared
 
-    func fetchMovies(id: Int, completion: @escaping (MovieDetailsModel) -> Void) {
-        apiService.apiRequest(id: id) { [weak self] activeData in
+    func fetchMovies(showType: String, id: Int, completion: @escaping (MovieDetailsModel) -> Void) {
+        apiService.apiRequest(showType: showType, id: id) { [weak self] activeData in
             self?.allMoviesDetails = activeData
             DispatchQueue.main.async {
                 completion(activeData)

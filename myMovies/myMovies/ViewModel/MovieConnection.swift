@@ -10,13 +10,13 @@ import Foundation
 class MovieDetails {
     static let shared = MovieDetails()
 
-    func apiRequest(id: Int, completion: @escaping (MovieDetailsModel) -> ()) {
+    func apiRequest(showType: String, id: Int, completion: @escaping (MovieDetailsModel) -> ()) {
         let headers = [
             "accept": "application/json",
-            "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjYjYyMzhkMjI4YWEyOTNlNmJlYTUyMjI5NjZmOGRiZCIsInN1YiI6IjY0ZDU4NTE2YjZjMjY0MTE1OTU4NjY1YSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.lftAWbeir1eBdZ9DAYqsBNx5wL4rL1PpNhlfuzeqh7E"
+            "Authorization": "Bearer \(DefaultValuesString.mainToken.localized)"
         ]
 
-        let request = NSMutableURLRequest(url: URL(string: "https://api.themoviedb.org/3/movie/\(id)?api_key=cb6238d228aa293e6bea5222966f8dbd")!,
+        let request = NSMutableURLRequest(url: URL(string: "\(DefaultValuesString.mainUrl.localized)\(showType)/\(id)\(DefaultValuesString.mainApiKey.localized)")!,
                                           cachePolicy: .useProtocolCachePolicy,
                                           timeoutInterval: 10.0)
         request.httpMethod = "GET"
@@ -28,7 +28,6 @@ class MovieDetails {
                 do {
                     let decoder = JSONDecoder()
                     let parsingData = try decoder.decode(MovieDetailsModel.self, from: data)
-                    print("parsingData \(parsingData)")
                     completion(parsingData)
                 } catch {
                     print("\(error)")

@@ -96,7 +96,7 @@ class CompanyLogoCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(with logoPath: String) {
-        if let url = URL(string: "https://image.tmdb.org/t/p/original\(logoPath)") {
+        if let url = URL(string: "\(DefaultValuesString.urlImages.localized)\(logoPath)") {
             ImageLoader.loadImage(from: url.absoluteString) { [weak self] loadedImage in
                 DispatchQueue.main.async {
                     self?.logoImageView.image = loadedImage

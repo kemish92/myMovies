@@ -7,7 +7,6 @@
 
 import Foundation
 
-// MARK: - MovieDetailsModel
 struct MovieDetailsModel: Codable {
     let adult: Bool?
     let backdropPath: String?
@@ -28,6 +27,8 @@ struct MovieDetailsModel: Codable {
     let video: Bool?
     let voteAverage: Double?
     let voteCount: Int?
+    let name: String?
+    let first_air_date: String?
 
     enum CodingKeys: String, CodingKey {
         case adult
@@ -47,10 +48,11 @@ struct MovieDetailsModel: Codable {
         case status, tagline, title, video
         case voteAverage = "vote_average"
         case voteCount = "vote_count"
+        case name
+        case first_air_date
     }
 }
 
-// MARK: - BelongsToCollection
 struct BelongsToCollection: Codable {
     let id: Int?
     let name, posterPath, backdropPath: String?
@@ -62,13 +64,11 @@ struct BelongsToCollection: Codable {
     }
 }
 
-// MARK: - Genre
 struct Genre: Codable {
     let id: Int?
     let name: String?
 }
 
-// MARK: - ProductionCompany
 struct ProductionCompany: Codable {
     let id: Int?
     let logoPath: String?
@@ -82,7 +82,6 @@ struct ProductionCompany: Codable {
     }
 }
 
-// MARK: - ProductionCountry
 struct ProductionCountry: Codable {
     let iso3166_1, name: String?
 
@@ -92,7 +91,6 @@ struct ProductionCountry: Codable {
     }
 }
 
-// MARK: - SpokenLanguage
 struct SpokenLanguage: Codable {
     let englishName, iso639_1, name: String?
 

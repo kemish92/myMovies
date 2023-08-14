@@ -36,3 +36,23 @@
 "ErrorStrings_coderNotImplemented" = "init(coder:) has not been implemented";
 "ErrorStrings_failedToLoadImage" = "Failed to load image.";
 "ErrorStrings_invaludURL" = "Invalid URL.";
+
+
+//MARK: Default Values Strings
+"DefaultValuesString_defaultImage" = "default.jpeg";
+"DefaultValuesString_defaultImageGradient" = "gradient.png";
+"DefaultValuesString_defaultRateIcont" = "★";
+"DefaultValuesString_defaultFont" = "AppleSDGothicNeo-Bold";
+"DefaultValuesString_defaultShow" = "movie";
+"DefaultValuesString_defaultSection" = "popular";
+"DefaultValuesString_defaultMovie" = "movie";
+"DefaultValuesString_defaultTv" = "tv";
+"DefaultValuesString_urlImages" = "https://image.tmdb.org/t/p/original/";
+"DefaultValuesString_apiEndpointPopular" = "popular";
+"DefaultValuesString_apiEndpointTopRated" = "top_rated";
+"DefaultValuesString_apiEndpointOnTheAir" = "on_the_air";
+"DefaultValuesString_apiEndpointAiringToday" = "airing_today";
+"DefaultValuesString_mainUrl" = "https://api.themoviedb.org/3/";
+"DefaultValuesString_mainLanguage" = "?language=en-US&page=";
+"DefaultValuesString_mainToken" = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjYjYyMzhkMjI4YWEyOTNlNmJlYTUyMjI5NjZmOGRiZCIsInN1YiI6IjY0ZDU4NTE2YjZjMjY0MTE1OTU4NjY1YSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.lftAWbeir1eBdZ9DAYqsBNx5wL4rL1PpNhlfuzeqh7E";
+"DefaultValuesString_mainApiKey" = "?api_key=cb6238d228aa293e6bea5222966f8dbd";

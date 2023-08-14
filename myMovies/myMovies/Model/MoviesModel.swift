@@ -7,7 +7,6 @@
 
 import Foundation
 
-// MARK: - MoviesModel
 struct Movies: Codable {
     let page: Int?
     let results: [Result]?
@@ -20,7 +19,6 @@ struct Movies: Codable {
     }
 }
 
-// MARK: - Result
 struct Result: Codable {
     let adult: Bool?
     let backdropPath: String?
@@ -33,6 +31,8 @@ struct Result: Codable {
     let video: Bool?
     let voteAverage: Double?
     let voteCount: Int?
+    let name: String?
+    let first_air_date: String?
 
     enum CodingKeys: String, CodingKey {
         case adult
@@ -47,5 +47,7 @@ struct Result: Codable {
         case title, video
         case voteAverage = "vote_average"
         case voteCount = "vote_count"
+        case name
+        case first_air_date
     }
 }
