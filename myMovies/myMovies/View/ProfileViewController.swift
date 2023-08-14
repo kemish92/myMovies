@@ -54,7 +54,7 @@ class ProfileViewController: UIViewController {
     private let userName: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "username"
+        label.text = ""
         label.textColor = UIColor.cardsTitle
         return label
     }()

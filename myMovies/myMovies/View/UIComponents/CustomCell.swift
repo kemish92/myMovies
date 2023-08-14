@@ -24,14 +24,13 @@ class CustomCell: UICollectionViewCell {
     }()
     
     let movieImage: UIImageView = {
-        let imageName = "Cat2.jpeg"
+        let imageName = "default.jpeg"
         let image = UIImage(named: imageName)
         let imageView = UIImageView(image: image!)
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.sizeToFit()
+        imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 20
         imageView.clipsToBounds = true
-        
         return imageView
     }()
     
@@ -41,9 +40,9 @@ class CustomCell: UICollectionViewCell {
         return view
     }()
     
-    private let movieTitle: UILabel = {
+    let movieTitle: UILabel = {
         let label = UILabel()
-        label.text = "Movie name"
+        label.text = ""
         label.textColor = UIColor.cardsTitle
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: "AppleSDGothicNeo-Bold", size: CustomFontSizes.subTitle)
@@ -70,9 +69,9 @@ class CustomCell: UICollectionViewCell {
         return view
     }()
     
-    private let date: UILabel = {
+    let date: UILabel = {
         let label = UILabel()
-        label.text = "07 /05 /1992"
+        label.text = ""
         label.textColor = UIColor.cardsTitle
         label.font = UIFont(name: "AppleSDGothicNeo-Bold", size: CustomFontSizes.subTitle)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -85,9 +84,9 @@ class CustomCell: UICollectionViewCell {
         return view
     }()
     
-    private let score: UILabel = {
+    let score: UILabel = {
         let label = UILabel()
-        label.text = "★ 9.5"
+        label.text = ""
         label.textColor = UIColor.cardsTitle
         label.font = UIFont(name: "AppleSDGothicNeo-Bold", size: CustomFontSizes.subTitle)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -100,10 +99,10 @@ class CustomCell: UICollectionViewCell {
         return view
     }()
     
-    private let descriptionText: UILabel = {
+    var descriptionText: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "UINavigationController, or navigationBar delegate set up incorrectly. Inconsistent configuration may cause problems. navigationController=<UINavigationController: 0x149824000>,"
+        label.text = ""
         label.textColor = .white
         label.font = UIFont(name: "AppleSDGothicNeo-Bold", size: CustomFontSizes.parragraph)
         label.numberOfLines = 8
@@ -204,6 +203,6 @@ class CustomCell: UICollectionViewCell {
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError("\(ErrorStrings.coderNotImplemented.localized)")
     }
 }

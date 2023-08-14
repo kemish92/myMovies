@@ -92,7 +92,12 @@ class CustomNavBarCreator {
     }
 }
 
+protocol CustomSegmentedControlDelegate: AnyObject {
+    func segmentedControlDidChange(to index: Int)
+}
+
 class CustomSegmentedControlView: UIView {
+    weak var delegate: CustomSegmentedControlDelegate?
     let segmentedControl = UISegmentedControl()
     init(items: [String]) {
         super.init(frame: .zero)
@@ -133,19 +138,70 @@ class CustomSegmentedControlView: UIView {
     }
     
     @objc func changeSelector(_ segmentedControl: UISegmentedControl) {
-        switch segmentedControl.selectedSegmentIndex {
-        case 0:
-            print("cero")
-        case 1:
-            print("one")
-        case 2:
-            print("two")
-        case 3:
-            print("three")
-        default:
-            print("none")
-        }
+        delegate?.segmentedControlDidChange(to: segmentedControl.selectedSegmentIndex)
     }
 }
 
+class DateFormatterHelper {
+    static func convertDate(_ dateString: String) -> String? {
+        let inputFormatter = DateFormatter()
+        inputFormatter.dateFormat = "yyyy-MM-dd"
+        
+        let outputFormatter = DateFormatter()
+        outputFormatter.dateFormat = "MMM dd, yyyy"
+        
+        if let date = inputFormatter.date(from: dateString) {
+            return outputFormatter.string(from: date)
+        }
+        
+        return nil
+    }
+}
 
+class DateFormatterHelperYear {
+    static func formatYearFromDate(dateString: String) -> String? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        if let date = dateFormatter.date(from: dateString) {
+            let yearFormatter = DateFormatter()
+            yearFormatter.dateFormat = "yyyy"
+            return yearFormatter.string(from: date)
+        }
+        
+        return nil
+    }
+}
+
+class TimeFormatterHelper {
+    static func formatTimeFromMinutes(minutes: Int) -> String {
+        let hours = minutes / 60
+        let remainingMinutes = minutes % 60
+        
+        let formattedTime = "\(hours):\(String(format: "%02d", remainingMinutes))"
+        return formattedTime
+    }
+}
+
+class ImageLoader {
+    static func loadImage(from urlString: String, completion: @escaping (UIImage?) -> Void) {
+        guard let url = URL(string: urlString) else {
+            completion(nil)
+            return
+        }
+        
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                print("\(ErrorStrings.loadingImageError.localized): \(error)")
+                completion(nil)
+                return
+            }
+            
+            if let data = data, let image = UIImage(data: data) {
+                completion(image)
+            } else {
+                completion(nil)
+            }
+        }.resume()
+    }
+}

@@ -36,6 +36,10 @@ extension UIColor {
         return UIColor(red: 28/255, green: 39/255, blue: 45/255, alpha: 1.0)
     }
     
+    static var cardsBackgroundLight: UIColor {
+        return UIColor(red: 70/255, green: 138/255, blue: 137/255, alpha: 1.0)
+    }
+    
     static var cardsTitle: UIColor {
         return UIColor(red: 118/255, green: 189/255, blue: 116/255, alpha: 1.0)
     }

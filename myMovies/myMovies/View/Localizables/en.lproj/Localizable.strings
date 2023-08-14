@@ -29,3 +29,10 @@
 
 //MARK: Profile Strings
 "ProfileStrings_profileTitle" = "Profile";
+
+
+//MARK: Error Strings
+"ErrorStrings_loadingImageError" = "Error loading image";
+"ErrorStrings_coderNotImplemented" = "init(coder:) has not been implemented";
+"ErrorStrings_failedToLoadImage" = "Failed to load image.";
+"ErrorStrings_invaludURL" = "Invalid URL.";
