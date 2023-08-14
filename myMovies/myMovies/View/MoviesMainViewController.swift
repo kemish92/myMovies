@@ -7,11 +7,15 @@
 
 import UIKit
 
-class MoviesMainViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class MoviesMainViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, CustomSegmentedControlDelegate {
     var customNavBarCreator: CustomNavBarCreator!
+    var viewModel = MoviesViewModel()
     
-    let cats = ["Cat1", "Cat2", "Cat3", "Cat4", "Cat5", "Cat1", "Cat2", "Cat3", "Cat4", "Cat5"]
     var collectionView: UICollectionView!
+    
+    var currentPage = 1 // Start with page 1
+    var defaultSection = "popular"
+    var isFetchingData = false // To prevent multiple fetch requests at the same time
     
     private let mainBackground: UIView = {
         let view = UIView()
@@ -55,15 +59,51 @@ class MoviesMainViewController: UIViewController, UICollectionViewDataSource, UI
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(CustomCell.self, forCellWithReuseIdentifier: "cell")
+        
+        getMovies()
+    }
+    
+    func getMovies() {
+        guard !isFetchingData else { return }
+        isFetchingData = true
+        
+        viewModel.fetchMovies(page: currentPage) { [weak self] in
+            self?.isFetchingData = false
+            self?.collectionView.reloadData()
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return cats.count
+        return viewModel.numberOfItems()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CustomCell
-        cell.movieImage.image = UIImage(named: cats[indexPath.row])
+        
+        if let movie = viewModel.movieAtIndex(indexPath.row) {
+            if let posterPath = movie.posterPath {
+                if let url = URL(string: "https://image.tmdb.org/t/p/original/\(posterPath)") {
+                    ImageLoader.loadImage(from: url.absoluteString) { loadedImage in
+                        DispatchQueue.main.async {
+                            if let loadedImage = loadedImage {
+                                cell.movieImage.image = loadedImage
+                            } else {
+                                print("\(ErrorStrings.loadingImageError.localized)")
+                            }
+                        }
+                    }
+                } else {
+                    print("\(ErrorStrings.invaludURL.localized)")
+                }
+            }
+            
+            cell.movieTitle.text = movie.originalTitle
+            let formattedDateStr = DateFormatterHelper.convertDate(movie.releaseDate ?? "")
+            cell.date.text = formattedDateStr
+            cell.score.text = "★ \(movie.voteAverage ?? 0.0)"
+            cell.descriptionText.text = movie.overview
+        }
+        
         return cell
     }
     
@@ -72,8 +112,12 @@ class MoviesMainViewController: UIViewController, UICollectionViewDataSource, UI
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("Cat \(indexPath.row)")
-        self.present(MovieDetailsViewController(), animated: true, completion: nil)
+        if let selectedMovie = viewModel.movieAtIndex(indexPath.row) {
+            guard let selectedMovieId = selectedMovie.id else { return }
+            let movieDetailsVC = MovieDetailsViewController()
+            movieDetailsVC.selectedMovieId = selectedMovieId
+            self.present(movieDetailsVC, animated: true, completion: nil)
+        }
     }
     
     func setNavBar(){
@@ -83,21 +127,51 @@ class MoviesMainViewController: UIViewController, UICollectionViewDataSource, UI
     }
     
     func setSegmentedControl(){
+        
+        
+        
+        
         let items = [MainMoviesStrings.popular.localized, MainMoviesStrings.topRated.localized, MainMoviesStrings.onTv.localized, MainMoviesStrings.airingToday.localized]
         let segmentedControlView = CustomSegmentedControlView(items: items)
+        segmentedControlView.delegate = self // Set the delegate
         segmentedControlView.translatesAutoresizingMaskIntoConstraints = false
         segmentedControlView.setTextColor(.white, backgroundColor: UIColor.customBlack, selectedSegmentColor: .lightGray)
         
         segmentedViewContainer.addSubview(segmentedControlView)
         segmentedControlView.segmentedControl.addTarget(segmentedControlView, action: #selector(CustomSegmentedControlView.changeSelector(
             _:)), for: .valueChanged)
-
+        
         NSLayoutConstraint.activate([
             segmentedControlView.centerXAnchor.constraint(equalTo: segmentedViewContainer.centerXAnchor),
             segmentedControlView.centerYAnchor.constraint(equalTo: segmentedViewContainer.centerYAnchor),
             segmentedControlView.widthAnchor.constraint(equalTo: segmentedViewContainer.widthAnchor, multiplier: 0.9)
         ])
     }
+    
+    func segmentedControlDidChange(to index: Int) {
+         var apiEndpoint = ""
+
+         switch index {
+         case 0:
+             apiEndpoint = "popular"
+             print("popular")
+         case 1:
+             apiEndpoint = "top_rated"
+             print("top_rated")
+         case 2:
+             apiEndpoint = "on_the_air"
+             print("on_the_air")
+         case 3:
+             apiEndpoint = "airing_today"
+             print("airing_today")
+         default:
+             break
+         }
+
+         // Call your API request method with the selected endpoint
+        defaultSection = apiEndpoint
+        getMovies()
+     }
     
     private func setUI(){
         view.addSubview(mainBackground)
@@ -126,3 +200,16 @@ class MoviesMainViewController: UIViewController, UICollectionViewDataSource, UI
     }
 }
 
+
+extension MoviesMainViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        let screenHeight = scrollView.frame.size.height
+        
+        if offsetY > contentHeight - screenHeight * 2 { // Fetch more data when user is close to the end
+            currentPage += 1
+            getMovies()
+        }
+    }
+}
