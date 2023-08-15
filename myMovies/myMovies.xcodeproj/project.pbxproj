@@ -26,6 +26,7 @@
 		914026832A8A831F00E85F1C /* DefaultValuesString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914026822A8A831F00E85F1C /* DefaultValuesString.swift */; };
 		914026852A8AAAA700E85F1C /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914026842A8AAAA700E85F1C /* LoginModel.swift */; };
 		914026872A8AD0CB00E85F1C /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914026862A8AD0CB00E85F1C /* CoreDataManager.swift */; };
+		914026892A8B268E00E85F1C /* KeyboardHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914026882A8B268E00E85F1C /* KeyboardHandling.swift */; };
 		918965882A85BE6F0008B71A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918965872A85BE6F0008B71A /* AppDelegate.swift */; };
 		9189658A2A85BE6F0008B71A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918965892A85BE6F0008B71A /* SceneDelegate.swift */; };
 		9189658C2A85BE6F0008B71A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9189658B2A85BE6F0008B71A /* ViewController.swift */; };
@@ -83,6 +84,7 @@
 		914026822A8A831F00E85F1C /* DefaultValuesString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultValuesString.swift; sourceTree = "<group>"; };
 		914026842A8AAAA700E85F1C /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
 		914026862A8AD0CB00E85F1C /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		914026882A8B268E00E85F1C /* KeyboardHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardHandling.swift; sourceTree = "<group>"; };
 		918965842A85BE6F0008B71A /* myMovies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = myMovies.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		918965872A85BE6F0008B71A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		918965892A85BE6F0008B71A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -247,6 +249,7 @@
 				9140265A2A86BDC100E85F1C /* Fonts.swift */,
 				914026602A871D3700E85F1C /* CustomCell.swift */,
 				914026782A89BA4B00E85F1C /* ProductionCompaniesCollectionView.swift */,
+				914026882A8B268E00E85F1C /* KeyboardHandling.swift */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -398,6 +401,7 @@
 				914026612A871D3700E85F1C /* CustomCell.swift in Sources */,
 				918965C22A85E4130008B71A /* UIReusableElements.swift in Sources */,
 				914026712A8810A800E85F1C /* MovieConnection.swift in Sources */,
+				914026892A8B268E00E85F1C /* KeyboardHandling.swift in Sources */,
 				918965882A85BE6F0008B71A /* AppDelegate.swift in Sources */,
 				918965922A85BE6F0008B71A /* myMovies.xcdatamodeld in Sources */,
 				9140265D2A86D38E00E85F1C /* AlertStrings.swift in Sources */,

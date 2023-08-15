@@ -36,6 +36,11 @@ class LoginViewController: UIViewController, WKNavigationDelegate {
         textField.placeholder = LoginStrings.usernamePlaceholder.localized
         textField.borderStyle = .roundedRect
         textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.textColor = UIColor.black
+        let attributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: UIColor.cardsTitle
+        ]
+        textField.attributedPlaceholder = NSAttributedString(string: LoginStrings.usernamePlaceholder.localized, attributes: attributes)
         return textField
     }()
     
@@ -45,6 +50,11 @@ class LoginViewController: UIViewController, WKNavigationDelegate {
         textField.borderStyle = .roundedRect
         textField.isSecureTextEntry = true
         textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.textColor = UIColor.black
+        let attributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: UIColor.cardsTitle
+        ]
+        textField.attributedPlaceholder = NSAttributedString(string: LoginStrings.passwordPlaceholder.localized, attributes: attributes)
         return textField
     }()
     
@@ -83,6 +93,7 @@ class LoginViewController: UIViewController, WKNavigationDelegate {
         label.text = "\(LoginStrings.activityIndicatorMessage.localized)"
         label.font = UIFont(name: "\(DefaultValuesString.defaultFont.localized)", size: CustomFontSizes.titleLarge)
         label.textAlignment = .center
+        label.textColor = UIColor.cardsTitle
         return label
     }()
     
@@ -101,6 +112,8 @@ class LoginViewController: UIViewController, WKNavigationDelegate {
         self.navigationController?.navigationBar.backgroundColor = .none
         setupUI()
         setColors()
+        setToolbar()
+        setupKeyboardHiding()
         
         GetUserTemporaryToken().getToken { token in
             if let token = token {
@@ -177,7 +190,7 @@ class LoginViewController: UIViewController, WKNavigationDelegate {
             activityIndicatorView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: view.frame.height/15),
             activityIndicatorView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -view.frame.height/15),
             activityIndicatorView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            activityIndicatorView.heightAnchor.constraint(equalToConstant: view.frame.height/5)
+            activityIndicatorView.heightAnchor.constraint(equalToConstant: view.frame.height/4)
         ])
         
         
@@ -216,6 +229,18 @@ class LoginViewController: UIViewController, WKNavigationDelegate {
                 self.navigationController?.show(vc, sender: nil)
             }
         }
+    }
+    
+    func setToolbar(){
+        let keyboardToolbar = UIToolbar()
+        keyboardToolbar.sizeToFit()
+        let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonTapped))
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonTapped))
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        keyboardToolbar.setItems([cancelButton, flexibleSpace, doneButton], animated: false)
+        
+        passwordTextField.inputAccessoryView = keyboardToolbar
+        usernameTextField.inputAccessoryView = keyboardToolbar
     }
     
     func authenticateUser(username: String, password: String) {
@@ -272,9 +297,27 @@ class LoginViewController: UIViewController, WKNavigationDelegate {
         }.resume()
     }
     
+    @objc func cancelButtonTapped() {
+        view.endEditing(true)
+    }
+
+    @objc func doneButtonTapped() {
+        view.endEditing(true)
+    }
 }
 
-
-
-
-
+extension UIResponder {
+    private struct Static {
+        static weak var responder: UIResponder?
+    }
+    
+    static func currentFirst() -> UIResponder? {
+        Static.responder = nil
+        UIApplication.shared.sendAction(#selector(UIResponder._trap), to: nil, from: nil, for: nil)
+        return Static.responder
+    }
+    
+    @objc private func _trap(){
+        Static.responder = self
+    }
+}

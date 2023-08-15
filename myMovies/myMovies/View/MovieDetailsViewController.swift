@@ -62,6 +62,22 @@ class MovieDetailsViewController: UIViewController {
         return imageView
     }()
     
+    private let gradientFavoriteView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    let gradientFavorite: UIImageView = {
+        let imageName = "\(DefaultValuesString.defaultImageGradient.localized)"
+        let image = UIImage(named: imageName)
+        let imageView = UIImageView(image: image!)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        return imageView
+    }()
+    
     private let voteAverage: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -146,12 +162,42 @@ class MovieDetailsViewController: UIViewController {
         return scrollView
     }()
     
+    private let favoriteButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.backgroundColor = .none
+        button.setTitleColor(.white, for: .normal)
+        button.setTitle("", for: .normal)
+        button.tintColor = .white
+        button.addTarget(self, action: #selector(addFavorite), for: .touchDown)
+        return button
+    }()
+    
+    private let dismissDetails: UIButton = {
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.backgroundColor = .none
+        button.setTitleColor(.white, for: .normal)
+        button.setTitle("", for: .normal)
+        button.tintColor = .white
+        button.addTarget(self, action: #selector(dismissModal), for: .touchDown)
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.customBlackBackground
         setupScrollView()
         setUI()
         getMovieDetails(showType: showType, id: selectedMovieId)
+
+        if let heartFillImage = UIImage(systemName: "heart.fill") {
+            favoriteButton.setImage(heartFillImage, for: .normal)
+        }
+        
+        if let circleFillImage = UIImage(systemName: "arrow.down.circle.fill") {
+            dismissDetails.setImage(circleFillImage, for: .normal)
+        }
     }
     
     private func setupScrollView() {
@@ -168,6 +214,10 @@ class MovieDetailsViewController: UIViewController {
         scrollView.addSubview(mainImageContainer)
         mainImageContainer.addSubview(movieImage)
         mainImageContainer.addSubview(voteAverageView)
+        mainImageContainer.addSubview(gradientFavoriteView)
+        gradientFavoriteView.addSubview(gradientFavorite)
+        gradientFavoriteView.addSubview(favoriteButton)
+        gradientFavoriteView.addSubview(dismissDetails)
         voteAverageView.addSubview(gradientImg)
         voteAverageView.addSubview(voteAverage)
         
@@ -191,6 +241,25 @@ class MovieDetailsViewController: UIViewController {
             movieImage.trailingAnchor.constraint(equalTo: mainImageContainer.trailingAnchor),
             movieImage.topAnchor.constraint(equalTo: mainImageContainer.topAnchor),
             movieImage.bottomAnchor.constraint(equalTo: mainImageContainer.bottomAnchor),
+            
+            gradientFavoriteView.leadingAnchor.constraint(equalTo: mainImageContainer.leadingAnchor),
+            gradientFavoriteView.trailingAnchor.constraint(equalTo: mainImageContainer.trailingAnchor),
+            gradientFavoriteView.heightAnchor.constraint(equalToConstant: 50),
+            gradientFavoriteView.topAnchor.constraint(equalTo: mainImageContainer.topAnchor),
+            
+            gradientFavorite.leadingAnchor.constraint(equalTo: gradientFavoriteView.leadingAnchor),
+            gradientFavorite.trailingAnchor.constraint(equalTo: gradientFavoriteView.trailingAnchor),
+            gradientFavorite.topAnchor.constraint(equalTo: gradientFavoriteView.topAnchor),
+            gradientFavorite.bottomAnchor.constraint(equalTo: gradientFavoriteView.bottomAnchor),
+            
+            favoriteButton.trailingAnchor.constraint(equalTo: gradientFavoriteView.trailingAnchor, constant: -20),
+            favoriteButton.topAnchor.constraint(equalTo: gradientFavoriteView.topAnchor),
+            favoriteButton.bottomAnchor.constraint(equalTo: gradientFavoriteView.bottomAnchor),
+            
+            
+            dismissDetails.leadingAnchor.constraint(equalTo: gradientFavoriteView.leadingAnchor, constant: 20),
+            dismissDetails.topAnchor.constraint(equalTo: gradientFavoriteView.topAnchor),
+            dismissDetails.bottomAnchor.constraint(equalTo: gradientFavoriteView.bottomAnchor),
             
             voteAverageView.leadingAnchor.constraint(equalTo: mainImageContainer.leadingAnchor),
             voteAverageView.trailingAnchor.constraint(equalTo: mainImageContainer.trailingAnchor),
@@ -314,5 +383,13 @@ class MovieDetailsViewController: UIViewController {
                     print("\(ErrorStrings.invaludURL.localized)")
                 }
         }
+    }
+    
+    @objc func addFavorite(){
+        print("add favorite")
+    }
+    
+    @objc func dismissModal(){
+        dismiss(animated: true, completion: nil)
     }
 }
