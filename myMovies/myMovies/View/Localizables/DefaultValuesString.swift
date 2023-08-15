@@ -8,6 +8,7 @@
 import Foundation
 
 enum DefaultValuesString: String {
+    case defaultLogoLogin
     case defaultImage
     case defaultImageGradient
     case defaultRateIcon
@@ -25,6 +26,7 @@ enum DefaultValuesString: String {
     case mainLanguage
     case mainToken
     case mainApiKey
+    case continueAsGuest
     
     var localized: String {
         NSLocalizedString(String(describing: Self.self) + "_\(rawValue)", comment: "")

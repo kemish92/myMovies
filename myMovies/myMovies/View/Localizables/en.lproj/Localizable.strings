@@ -10,7 +10,7 @@
 "LoginStrings_passwordPlaceholder" = "Password";
 "LoginStrings_loginButton" = "Log In";
 "LoginStrings_errorLoginMessage" = "Invalid username and/or password: You did not provide a valid login";
-
+"LoginStrings_activityIndicatorMessage" = "Logging in";
 
 //MARK: MainMovies Strings
 "MainMoviesStrings_mainMoviesTitle" = "Movies";
@@ -39,6 +39,7 @@
 
 
 //MARK: Default Values Strings
+"DefaultValuesString_defaultLogoLogin" = "movieLogoNoBG.png";
 "DefaultValuesString_defaultImage" = "default.jpeg";
 "DefaultValuesString_defaultImageGradient" = "gradient.png";
 "DefaultValuesString_defaultRateIcont" = "★";
@@ -56,3 +57,4 @@
 "DefaultValuesString_mainLanguage" = "?language=en-US&page=";
 "DefaultValuesString_mainToken" = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjYjYyMzhkMjI4YWEyOTNlNmJlYTUyMjI5NjZmOGRiZCIsInN1YiI6IjY0ZDU4NTE2YjZjMjY0MTE1OTU4NjY1YSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.lftAWbeir1eBdZ9DAYqsBNx5wL4rL1PpNhlfuzeqh7E";
 "DefaultValuesString_mainApiKey" = "?api_key=cb6238d228aa293e6bea5222966f8dbd";
+"DefaultValuesString_continueAsGuest" = "Continue as guest";

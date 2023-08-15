@@ -1,5 +1,5 @@
 //
-//  LoginStrings.swift
+//  AlertStrings.swift
 //  myMovies
 //
 //  Created by Alberto Kemish Flores Macias on 8/11/23.
@@ -7,12 +7,11 @@
 
 import Foundation
 
-enum LoginStrings: String {
-    case usernamePlaceholder
-    case passwordPlaceholder
-    case loginButton
-    case errorLoginMessage
-    case activityIndicatorMessage
+enum AlertStrings: String {
+    case profileActionTitle
+    case profile
+    case logOut
+    case cancel
     
     var localized: String {
         NSLocalizedString(String(describing: Self.self) + "_\(rawValue)", comment: "")
