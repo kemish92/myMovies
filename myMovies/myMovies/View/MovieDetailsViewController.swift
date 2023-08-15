@@ -235,7 +235,7 @@ class MovieDetailsViewController: UIViewController {
             storyLine.leadingAnchor.constraint(equalTo: mainDescriptionContainer.leadingAnchor, constant: 10),
             storyLine.trailingAnchor.constraint(equalTo: mainDescriptionContainer.trailingAnchor, constant: -10),
             storyLine.topAnchor.constraint(equalTo: storyLineTitle.bottomAnchor),
-            storyLine.bottomAnchor.constraint(lessThanOrEqualTo: spokenLanguages.topAnchor, constant: -10), // Optional spacing between elements
+            storyLine.bottomAnchor.constraint(lessThanOrEqualTo: spokenLanguages.topAnchor, constant: -10),
             
             spokenLanguages.leadingAnchor.constraint(equalTo: mainDescriptionContainer.leadingAnchor, constant: 10),
             spokenLanguages.trailingAnchor.constraint(equalTo: mainDescriptionContainer.trailingAnchor, constant: -10),

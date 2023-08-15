@@ -47,8 +47,6 @@ class ProductionCompaniesCollectionView: UIView, UICollectionViewDataSource, UIC
         collectionView.reloadData()
     }
     
-    // MARK: UICollectionViewDataSource
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return productionCompanies.count
     }
@@ -59,8 +57,6 @@ class ProductionCompaniesCollectionView: UIView, UICollectionViewDataSource, UIC
         cell.configure(with: company.logoPath ?? "")
         return cell
     }
-    
-    // MARK: UICollectionViewDelegateFlowLayout
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 100, height: collectionView.bounds.height)

@@ -27,6 +27,9 @@ enum DefaultValuesString: String {
     case mainToken
     case mainApiKey
     case continueAsGuest
+    case authenticationSession
+    case authenticationTokenNew
+    case authenticationValidatelogin
     
     var localized: String {
         NSLocalizedString(String(describing: Self.self) + "_\(rawValue)", comment: "")

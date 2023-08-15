@@ -47,9 +47,9 @@ class SessionManager {
     
     func updateSessionId(newId: String) {
         if readSessionId() != nil {
-            deleteSessionId() // Delete the existing session ID
+            deleteSessionId()
         }
-        insertSessionId(id: newId) // Insert the new session ID
+        insertSessionId(id: newId)
     }
     
     func deleteSessionId() {

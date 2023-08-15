@@ -58,3 +58,6 @@
 "DefaultValuesString_mainToken" = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjYjYyMzhkMjI4YWEyOTNlNmJlYTUyMjI5NjZmOGRiZCIsInN1YiI6IjY0ZDU4NTE2YjZjMjY0MTE1OTU4NjY1YSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.lftAWbeir1eBdZ9DAYqsBNx5wL4rL1PpNhlfuzeqh7E";
 "DefaultValuesString_mainApiKey" = "?api_key=cb6238d228aa293e6bea5222966f8dbd";
 "DefaultValuesString_continueAsGuest" = "Continue as guest";
+"DefaultValuesString_authenticationSession" = "authentication/session";
+"DefaultValuesString_authenticationTokenNew" = "authentication/token/new";
+"DefaultValuesString_authenticationValidatelogin" = "authentication/token/validate_with_login";

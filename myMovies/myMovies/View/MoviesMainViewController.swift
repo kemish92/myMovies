@@ -176,6 +176,8 @@ class MoviesMainViewController: UIViewController, UICollectionViewDataSource, UI
         defaultSection = apiEndpoint
         showType = apiShow
         currentPage = 1
+        viewModel.resetData()
+        collectionView.reloadData()
         getMovies()
      }
     

@@ -89,7 +89,7 @@ class LoginViewController: UIViewController, WKNavigationDelegate {
     let activityIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView(style: .large)
         indicator.translatesAutoresizingMaskIntoConstraints = false
-        indicator.color = .gray // Set the color of the indicator
+        indicator.color = .gray
         return indicator
     }()
     

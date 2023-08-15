@@ -7,10 +7,9 @@
 
 import Foundation
 
-// MARK: - RequestToken
 struct RequestToken: Codable {
     let expiresAt, requestToken: String?
-    let success: Bool? // Change the data type to Bool
+    let success: Bool?
 
     enum CodingKeys: String, CodingKey {
         case expiresAt = "expires_at"
