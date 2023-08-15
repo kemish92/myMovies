@@ -50,7 +50,6 @@ class CustomNavBarCreator {
         titleLabel.font = UIFont.systemFont(ofSize: titleFontSize, weight: .bold)
         
         viewController.navigationItem.titleView = titleLabel
-        viewController.navigationController?.navigationBar.backgroundColor = UIColor(red: 26/255, green: 26/255, blue: 26/255, alpha: 1)
         viewController.navigationController?.navigationBar.tintColor = .white
         viewController.navigationController?.navigationBar.backgroundColor = UIColor(red: 46/255, green: 55/255, blue: 58/255, alpha: 1.0)
     }
@@ -83,12 +82,55 @@ class CustomNavBarCreator {
             case "profile":
                 viewController.present(ProfileViewController(), animated: true, completion: nil)
             case "logout":
+                if let sessionId = SessionManager.shared.readSessionId() {
+                    print("Session ID from main movies: \(sessionId)")
+                    deleteSeason(sessionId: sessionId)
+                }
+                //viewController.present(LoginViewController(), animated: true, completion: nil)
+                let vc = LoginViewController()
+                viewController.navigationController?.show(vc, sender: nil)
                 print("logout")
             default:
                 print("cancel")
             }
         }
 
+    }
+    
+    func deleteSeason(sessionId: String) {
+        let headers = [
+            "accept": "application/json",
+            "content-type": "application/json",
+            "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjYjYyMzhkMjI4YWEyOTNlNmJlYTUyMjI5NjZmOGRiZCIsInN1YiI6IjY0ZDU4NTE2YjZjMjY0MTE1OTU4NjY1YSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.lftAWbeir1eBdZ9DAYqsBNx5wL4rL1PpNhlfuzeqh7E"
+        ]
+        
+        let parameters = ["session_id": "\(sessionId)"]
+        
+        do {
+            let postData = try JSONSerialization.data(withJSONObject: parameters)
+            
+            let request = NSMutableURLRequest(url: NSURL(string: "https://api.themoviedb.org/3/authentication/session")! as URL,
+                                              cachePolicy: .useProtocolCachePolicy,
+                                              timeoutInterval: 10.0)
+            request.httpMethod = "DELETE"
+            request.allHTTPHeaderFields = headers
+            request.httpBody = postData
+            
+            let session = URLSession.shared
+            let dataTask = session.dataTask(with: request as URLRequest) { (data, response, error) in
+                if let error = error {
+                    print(error)
+                } else {
+                    if let httpResponse = response as? HTTPURLResponse {
+                        print(httpResponse)
+                    }
+                }
+            }
+            
+            dataTask.resume()
+        } catch {
+            print(error)
+        }
     }
 }
 

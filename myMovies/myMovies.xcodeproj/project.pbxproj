@@ -24,6 +24,8 @@
 		914026792A89BA4B00E85F1C /* ProductionCompaniesCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914026782A89BA4B00E85F1C /* ProductionCompaniesCollectionView.swift */; };
 		914026812A8A68C700E85F1C /* LanguageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914026802A8A68C700E85F1C /* LanguageModel.swift */; };
 		914026832A8A831F00E85F1C /* DefaultValuesString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914026822A8A831F00E85F1C /* DefaultValuesString.swift */; };
+		914026852A8AAAA700E85F1C /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914026842A8AAAA700E85F1C /* LoginModel.swift */; };
+		914026872A8AD0CB00E85F1C /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914026862A8AD0CB00E85F1C /* CoreDataManager.swift */; };
 		918965882A85BE6F0008B71A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918965872A85BE6F0008B71A /* AppDelegate.swift */; };
 		9189658A2A85BE6F0008B71A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918965892A85BE6F0008B71A /* SceneDelegate.swift */; };
 		9189658C2A85BE6F0008B71A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9189658B2A85BE6F0008B71A /* ViewController.swift */; };
@@ -79,6 +81,8 @@
 		914026782A89BA4B00E85F1C /* ProductionCompaniesCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductionCompaniesCollectionView.swift; sourceTree = "<group>"; };
 		914026802A8A68C700E85F1C /* LanguageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageModel.swift; sourceTree = "<group>"; };
 		914026822A8A831F00E85F1C /* DefaultValuesString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultValuesString.swift; sourceTree = "<group>"; };
+		914026842A8AAAA700E85F1C /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
+		914026862A8AD0CB00E85F1C /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		918965842A85BE6F0008B71A /* myMovies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = myMovies.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		918965872A85BE6F0008B71A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		918965892A85BE6F0008B71A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -189,6 +193,7 @@
 				914026682A87CF0A00E85F1C /* MoviesModel.swift */,
 				914026742A8813AB00E85F1C /* MovieDetailsModel.swift */,
 				914026802A8A68C700E85F1C /* LanguageModel.swift */,
+				914026842A8AAAA700E85F1C /* LoginModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -215,6 +220,7 @@
 				9140266A2A88080400E85F1C /* AllMoviesConnection.swift */,
 				914026722A8810BE00E85F1C /* MovieDetailsViewModel.swift */,
 				914026702A8810A800E85F1C /* MovieConnection.swift */,
+				914026862A8AD0CB00E85F1C /* CoreDataManager.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -395,11 +401,13 @@
 				918965882A85BE6F0008B71A /* AppDelegate.swift in Sources */,
 				918965922A85BE6F0008B71A /* myMovies.xcdatamodeld in Sources */,
 				9140265D2A86D38E00E85F1C /* AlertStrings.swift in Sources */,
+				914026872A8AD0CB00E85F1C /* CoreDataManager.swift in Sources */,
 				918965D52A85FD5B0008B71A /* MainMoviesStrings.swift in Sources */,
 				914026672A872B9F00E85F1C /* ProfileStrings.swift in Sources */,
 				918965C02A85D5750008B71A /* LoginViewController.swift in Sources */,
 				9140265F2A86D4AE00E85F1C /* ProfileViewController.swift in Sources */,
 				9189658A2A85BE6F0008B71A /* SceneDelegate.swift in Sources */,
+				914026852A8AAAA700E85F1C /* LoginModel.swift in Sources */,
 				914026832A8A831F00E85F1C /* DefaultValuesString.swift in Sources */,
 				918965D32A85FA900008B71A /* MoviesMainViewController.swift in Sources */,
 				9140266F2A880EB000E85F1C /* ErrorStrings.swift in Sources */,
