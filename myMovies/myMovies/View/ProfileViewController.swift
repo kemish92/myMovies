@@ -19,7 +19,7 @@ class ProfileViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = ProfileStrings.profileTitle.localized
         label.textColor = UIColor.cardsTitle
-        label.font = UIFont(name: "AppleSDGothicNeo-Bold", size: CustomFontSizes.titleLarge)
+        label.font = UIFont(name: "\(DefaultValuesString.defaultFont.localized)", size: CustomFontSizes.titleLarge)
         return label
     }()
     
