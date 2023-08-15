@@ -22,7 +22,7 @@
 
 //MARK: Alert Strings
 "AlertStrings_profileActionTitle" = "What do you want to do?";
-"AlertStrings_profile" = "Profile";
+"AlertStrings_profile" = "View Profile";
 "AlertStrings_logOut" = "Log Out";
 "AlertStrings_cancel" = "Cancel";
 
@@ -39,6 +39,7 @@
 
 
 //MARK: Default Values Strings
+"DefaultValuesString_defaultProfile" = "profile.png";
 "DefaultValuesString_defaultLogoLogin" = "movieLogoNoBG.png";
 "DefaultValuesString_defaultImage" = "default.jpeg";
 "DefaultValuesString_defaultImageGradient" = "gradient.png";
@@ -61,3 +62,5 @@
 "DefaultValuesString_authenticationSession" = "authentication/session";
 "DefaultValuesString_authenticationTokenNew" = "authentication/token/new";
 "DefaultValuesString_authenticationValidatelogin" = "authentication/token/validate_with_login";
+"DefaultValuesString_mainAccount" = "https://api.themoviedb.org/3/account/";
+"DefaultValuesString_mainFavorite" = "/favorite/movies?language=en-US&page=1&sort_by=created_at.asc";

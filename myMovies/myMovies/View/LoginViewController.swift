@@ -37,6 +37,7 @@ class LoginViewController: UIViewController, WKNavigationDelegate {
         textField.borderStyle = .roundedRect
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.textColor = UIColor.black
+        textField.autocapitalizationType = .none
         let attributes: [NSAttributedString.Key: Any] = [
             .foregroundColor: UIColor.cardsTitle
         ]
@@ -193,14 +194,12 @@ class LoginViewController: UIViewController, WKNavigationDelegate {
             activityIndicatorView.heightAnchor.constraint(equalToConstant: view.frame.height/4)
         ])
         
-        
         activityIndicatorView.addSubview(activityMessage)
         NSLayoutConstraint.activate([
             activityMessage.leadingAnchor.constraint(equalTo: activityIndicatorView.leadingAnchor),
             activityMessage.trailingAnchor.constraint(equalTo: activityIndicatorView.trailingAnchor),
             activityMessage.topAnchor.constraint(equalTo: activityIndicatorView.topAnchor, constant: 30)
         ])
-        
         
         activityIndicatorView.addSubview(activityIndicator)
         NSLayoutConstraint.activate([
@@ -222,7 +221,6 @@ class LoginViewController: UIViewController, WKNavigationDelegate {
         let loginAuth = loginUserValidator().loginValidator()
         if loginAuth == "debug_disabled"{
             authenticateUser(username: username, password: password)
-            requestSessionId()
         } else if loginAuth == "debug_enabled"{
             DispatchQueue.main.async {
                 let vc = MoviesMainViewController()
@@ -248,8 +246,10 @@ class LoginViewController: UIViewController, WKNavigationDelegate {
         authenticationManager.validateRequestTokenWithLogin(username: username, password: password, requestToken: temToken) { isSuccess in
             if isSuccess {
                 DispatchQueue.main.async {
+                    SessionManager.shared.insertUserId(username: username)
                     self.loginErrorMessage.isHidden = true
                     let vc = MoviesMainViewController()
+                    vc.continueAsGuest = 0
                     self.navigationController?.show(vc, sender: nil)
                 }
             } else {
@@ -263,38 +263,8 @@ class LoginViewController: UIViewController, WKNavigationDelegate {
     
     @objc func continueGuest(){
         let vc = MoviesMainViewController()
+        vc.continueAsGuest = 1
         self.navigationController?.show(vc, sender: nil)
-    }
-    
-    func requestSessionId(){
-        let createSessionURL = URL(string: "\(DefaultValuesString.mainUrl.localized)authentication/session/new?api_key=cb6238d228aa293e6bea5222966f8dbd")!
-        var request = URLRequest(url: createSessionURL)
-        request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        let body = [
-            "request_token": "\(self.temToken)"
-        ]
-        let jsonData = try? JSONSerialization.data(withJSONObject: body)
-        request.httpBody = jsonData
-        
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            if let error = error {
-                print("Error: \(error)")
-                return
-            }
-            
-            if let data = data {
-                do {
-                    let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
-                    if let sessionId = json?["session_id"] as? String {
-                        SessionManager.shared.insertSessionId(id: sessionId)
-                    }
-                } catch {
-                    print("Error: \(error)")
-                }
-            }
-        }.resume()
     }
     
     @objc func cancelButtonTapped() {

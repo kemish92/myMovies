@@ -9,6 +9,7 @@ import UIKit
 
 class MoviesMainViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, CustomSegmentedControlDelegate {
     var customNavBarCreator: CustomNavBarCreator!
+    var continueAsGuest = 0
     var viewModel = MoviesViewModel()
     
     var collectionView: UICollectionView!
@@ -131,6 +132,7 @@ class MoviesMainViewController: UIViewController, UICollectionViewDataSource, UI
     func setNavBar(){
         view.backgroundColor = UIColor.customGrayForNavBar
         customNavBarCreator = CustomNavBarCreator()
+        customNavBarCreator.guestValidator = continueAsGuest
         customNavBarCreator.navigationButton(viewController: self, title: MainMoviesStrings.mainMoviesTitle.localized, titleFontSize: CustomFontSizes.title)
     }
     

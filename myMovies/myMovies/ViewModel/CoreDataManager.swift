@@ -14,7 +14,7 @@ class SessionManager {
         let container = NSPersistentContainer(name: "myMovies")
         container.loadPersistentStores { (_, error) in
             if let error = error as NSError? {
-                fatalError("Unresolved error \(error), \(error.userInfo)")
+                fatalError("\(error), \(error.userInfo)")
             }
         }
         return container
@@ -31,6 +31,13 @@ class SessionManager {
         saveContext()
     }
     
+    func insertUserId(username: String) {
+        let entity = NSEntityDescription.entity(forEntityName: "SessionId", in: context)!
+        let sessionId = NSManagedObject(entity: entity, insertInto: context)
+        sessionId.setValue(username, forKeyPath: "userId")
+        saveContext()
+    }
+    
     func readSessionId() -> String? {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "SessionId")
         do {
@@ -40,7 +47,21 @@ class SessionManager {
                 return id
             }
         } catch {
-            print("Error reading session: \(error)")
+            print("\(error)")
+        }
+        return nil
+    }
+    
+    func readUsernameId() -> String? {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "SessionId")
+        do {
+            let result = try context.fetch(fetchRequest)
+            if let session = result.first as? NSManagedObject,
+               let id = session.value(forKey: "userId") as? String {
+                return id
+            }
+        } catch {
+            print("\(error)")
         }
         return nil
     }
@@ -59,7 +80,7 @@ class SessionManager {
             try context.execute(batchDeleteRequest)
             saveContext()
         } catch {
-            print("Error deleting session: \(error)")
+            print("\(error)")
         }
     }
     
@@ -68,7 +89,7 @@ class SessionManager {
             do {
                 try context.save()
             } catch {
-                print("Error saving context: \(error)")
+                print("\(error)")
             }
         }
     }
