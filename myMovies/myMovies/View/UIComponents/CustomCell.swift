@@ -42,7 +42,6 @@ class CustomCell: UICollectionViewCell {
     
     let movieTitle: UILabel = {
         let label = UILabel()
-        label.text = ""
         label.textColor = UIColor.cardsTitle
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: "\(DefaultValuesString.defaultFont.localized)", size: CustomFontSizes.subTitle)
@@ -71,7 +70,6 @@ class CustomCell: UICollectionViewCell {
     
     let date: UILabel = {
         let label = UILabel()
-        label.text = ""
         label.textColor = UIColor.cardsTitle
         label.font = UIFont(name: "\(DefaultValuesString.defaultFont.localized)", size: CustomFontSizes.subTitle)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -86,7 +84,6 @@ class CustomCell: UICollectionViewCell {
     
     let score: UILabel = {
         let label = UILabel()
-        label.text = ""
         label.textColor = UIColor.cardsTitle
         label.font = UIFont(name: "\(DefaultValuesString.defaultFont.localized)", size: CustomFontSizes.subTitle)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -102,7 +99,6 @@ class CustomCell: UICollectionViewCell {
     var descriptionText: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = ""
         label.textColor = .white
         label.font = UIFont(name: "\(DefaultValuesString.defaultFont.localized)", size: CustomFontSizes.parragraph)
         label.numberOfLines = 8

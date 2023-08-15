@@ -39,7 +39,6 @@ class MovieDetailsViewController: UIViewController {
     private let movieTitle: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = ""
         label.numberOfLines = 2
         label.font = UIFont(name: "\(DefaultValuesString.defaultFont.localized)", size: CustomFontSizes.titleLarge)
         label.textColor = .white
@@ -99,7 +98,6 @@ class MovieDetailsViewController: UIViewController {
     private let releaseDate: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = ""
         label.numberOfLines = 0
         label.textColor = UIColor.cardsTitle
         return label
@@ -108,7 +106,6 @@ class MovieDetailsViewController: UIViewController {
     private let runTime: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = ""
         label.textColor = .white
         return label
     }()
@@ -116,7 +113,6 @@ class MovieDetailsViewController: UIViewController {
     private let generes: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = ""
         label.textColor = .white
         return label
     }()
@@ -124,7 +120,6 @@ class MovieDetailsViewController: UIViewController {
     private let storyLineTitle: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = ""
         label.font = UIFont(name: "\(DefaultValuesString.defaultFont.localized)", size: CustomFontSizes.titleMid)
         label.textColor = .white
         return label
@@ -133,7 +128,6 @@ class MovieDetailsViewController: UIViewController {
     private let storyLine: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = ""
         label.font = UIFont(name: "\(DefaultValuesString.defaultFont.localized)", size: CustomFontSizes.title)
         label.textAlignment = NSTextAlignment.justified
         label.textColor = .white
@@ -143,7 +137,6 @@ class MovieDetailsViewController: UIViewController {
     private let spokenLanguages: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = ""
         label.font = UIFont(name: "\(DefaultValuesString.defaultFont.localized)", size: CustomFontSizes.parragraph)
         label.textColor = .white
         return label
@@ -167,7 +160,6 @@ class MovieDetailsViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = .none
         button.setTitleColor(.white, for: .normal)
-        button.setTitle("", for: .normal)
         button.tintColor = .white
         button.addTarget(self, action: #selector(addFavorite), for: .touchDown)
         return button
@@ -178,7 +170,6 @@ class MovieDetailsViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = .none
         button.setTitleColor(.white, for: .normal)
-        button.setTitle("", for: .normal)
         button.tintColor = .white
         button.addTarget(self, action: #selector(dismissModal), for: .touchDown)
         return button
@@ -190,7 +181,6 @@ class MovieDetailsViewController: UIViewController {
         setupScrollView()
         setUI()
         getMovieDetails(showType: showType, id: selectedMovieId)
-
         if let heartFillImage = UIImage(systemName: "heart.fill") {
             favoriteButton.setImage(heartFillImage, for: .normal)
         }
@@ -255,7 +245,6 @@ class MovieDetailsViewController: UIViewController {
             favoriteButton.trailingAnchor.constraint(equalTo: gradientFavoriteView.trailingAnchor, constant: -20),
             favoriteButton.topAnchor.constraint(equalTo: gradientFavoriteView.topAnchor),
             favoriteButton.bottomAnchor.constraint(equalTo: gradientFavoriteView.bottomAnchor),
-            
             
             dismissDetails.leadingAnchor.constraint(equalTo: gradientFavoriteView.leadingAnchor, constant: 20),
             dismissDetails.topAnchor.constraint(equalTo: gradientFavoriteView.topAnchor),

@@ -8,5 +8,5 @@
 import UIKit
 
 class debugController {
-    let validator = 0
+    let validator = 0 //0 = off = login required
 }
